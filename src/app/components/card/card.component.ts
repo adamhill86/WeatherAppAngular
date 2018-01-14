@@ -135,8 +135,16 @@ export class CardComponent implements OnInit {
     this.pressure = this.weatherData["current_observation"]["pressure_mb"];
     this.visibility = this.weatherData["current_observation"]["visibility_mi"];
 
-    this.forecastToday = this.weatherData["forecast"]["txt_forecast"]["forecastday"][0]["fcttext"];
-    this.forecastTonight = this.weatherData["forecast"]["txt_forecast"]["forecastday"][1]["fcttext"];
+    // get descriptive forecast strings for today and tonight
+    if (this.units === "f") {
+      // use these if we're using degrees F
+      this.forecastToday = this.weatherData["forecast"]["txt_forecast"]["forecastday"][0]["fcttext"];
+      this.forecastTonight = this.weatherData["forecast"]["txt_forecast"]["forecastday"][1]["fcttext"];
+    } else {
+      // use these if we're using degrees C
+      this.forecastToday = this.weatherData["forecast"]["txt_forecast"]["forecastday"][0]["fcttext_metric"];
+      this.forecastTonight = this.weatherData["forecast"]["txt_forecast"]["forecastday"][1]["fcttext_metric"];
+    }
 
     this.setBackgroundColor();
   }
