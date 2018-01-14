@@ -124,10 +124,10 @@ export class CardComponent implements OnInit {
     this.setBackgroundColor();
   }
 
-  setCityName(cityName: string) {
-    this.cityName = cityName;
-    console.log(`Inside setCityName, cityName: ${this.cityName}, stateName: ${this.stateName}`);
-  }
+  // setCityName(cityName: string) {
+  //   this.cityName = cityName;
+  //   console.log(`Inside setCityName, cityName: ${this.cityName}, stateName: ${this.stateName}`);
+  // }
 }
 
 interface Coordinates {
