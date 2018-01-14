@@ -14,6 +14,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { DataService } from './services/data.service';
 import { NewCityService } from './services/new-city.service';
 import { CreateComponentService } from './services/create-component.service';
+import { ChangeUnitsService } from './services/change-units.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { CreateComponentService } from './services/create-component.service';
     MatButtonModule,
     NgbModule.forRoot()
   ],
-  providers: [DataService, NewCityService, CreateComponentService],
+  providers: [DataService, NewCityService, CreateComponentService, ChangeUnitsService],
   bootstrap: [AppComponent],
   entryComponents: [CardComponent]
 })

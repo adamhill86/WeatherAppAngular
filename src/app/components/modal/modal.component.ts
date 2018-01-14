@@ -44,10 +44,10 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  sendMessage() {
-    console.log("In SendMessage");
-    this.messageEvent.emit(`${this.cityName}, ${this.state}`);
-  }
+  // sendMessage() {
+  //   console.log("In SendMessage");
+  //   this.messageEvent.emit(`${this.cityName}, ${this.state}`);
+  // }
 
   ngOnInit() {
     this.data.currentMessage.subscribe(message => this.message = message);

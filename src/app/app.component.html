@@ -1,6 +1,12 @@
 <div class="container mt-3">
   <h1 class="display-1 text-center">Weather</h1>
   <p class="text-center"><small>Data provided by <a href="https://www.wunderground.com/">Weather Underground</a></small></p>
+  <div class="row justify-content-center">
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary" (click)="setFahrenheit()">&deg; F</button>
+      <button type="button" class="btn btn-success" (click)="setCelsius()">&deg; C</button>
+    </div>
+  </div>
   <app-card></app-card>
   <ng-template #dynamic></ng-template>
 </div>

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
+import { ChangeUnitsService } from '../../services/change-units.service';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class CardComponent implements OnInit {
   pressure: number;
   visibility: number;
   weatherData: any;
+  units: string;
 
   position: Coordinates;
 
@@ -33,7 +35,7 @@ export class CardComponent implements OnInit {
 
   closeResult: string;
 
-  constructor(private dataService: DataService) { 
+  constructor(private dataService: DataService, private changeUnitsService: ChangeUnitsService) { 
     //console.log(`cityName: ${this.cityName}, stateName: ${this.stateName}`);
   }
 
@@ -57,6 +59,16 @@ export class CardComponent implements OnInit {
         this.setDefaultCityStateData();
       }
     }
+
+    this.changeUnitsService.currentMessage.subscribe(message => {
+      console.log("Message changed", message);
+      this.units = message;
+      if (this.weatherData !== undefined) {
+        // make sure data has been set before
+        // if it has, update to new units
+        this.setWeatherData(this.weatherData, this.units);
+      }
+    });
   }
 
   setBackgroundColor() {
@@ -87,27 +99,27 @@ export class CardComponent implements OnInit {
 
   setLatLongData() {
     this.dataService.getWeatherDataLatLong(this.position.lat, this.position.long).subscribe(data => {
-      this.setWeatherData(data);
+      this.setWeatherData(data, this.units);
     });
   }
 
   setDefaultCityStateData() {
     this.dataService.getDefaultWeatherData().subscribe(data => {
-      this.setWeatherData(data);
+      this.setWeatherData(data, this.units);
     });
   }
 
   setCityStateData() {
     this.dataService.getWeatherData(this.cityName, this.stateName).subscribe(data => {
-      this.setWeatherData(data);
+      this.setWeatherData(data, this.units);
     });
   }
 
-  setWeatherData(data) {
+  setWeatherData(data, unit) {
     this.weatherData = data;
     console.log(this.weatherData);
     this.location = this.weatherData["current_observation"]["display_location"]["full"];
-    this.temp = Math.round(this.weatherData["current_observation"]["temp_f"]);
+    this.temp = Math.round(this.weatherData["current_observation"][`temp_${unit}`]);
     this.conditions = this.weatherData["current_observation"]["weather"];
     this.icon = this.weatherData["current_observation"]["icon"];
     this.iconClass = "white"; // default white outline with colored components
@@ -115,9 +127,9 @@ export class CardComponent implements OnInit {
     this.windDirection = this.weatherData["current_observation"]["wind_dir"];
     this.uv = this.weatherData["current_observation"]["UV"];
     this.humidity = this.weatherData["current_observation"]["relative_humidity"];
-    this.dewPoint = this.weatherData["current_observation"]["dewpoint_f"];
-    this.feelsLike = this.weatherData["current_observation"]["feelslike_f"];
-    this.windChill = this.weatherData["current_observation"]["windchill_f"];
+    this.dewPoint = this.weatherData["current_observation"][`dewpoint_${unit}`];
+    this.feelsLike = this.weatherData["current_observation"][`feelslike_${unit}`];
+    this.windChill = this.weatherData["current_observation"][`windchill_${unit}`];
     this.pressure = this.weatherData["current_observation"]["pressure_mb"];
     this.visibility = this.weatherData["current_observation"]["visibility_mi"];
 

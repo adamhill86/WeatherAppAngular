@@ -7,6 +7,7 @@ import {
 
 import { NewCityService } from './services/new-city.service';
 import { CreateComponentService } from './services/create-component.service';
+import { ChangeUnitsService } from './services/change-units.service';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ import { CreateComponentService } from './services/create-component.service';
 export class AppComponent implements OnInit {
   title = 'app';
   message: string;
+  units: string;
   service: CreateComponentService;
   footerClass: string;
   numCards: number;
@@ -27,7 +29,8 @@ export class AppComponent implements OnInit {
     read: ViewContainerRef
   }) viewContainerRef: ViewContainerRef;
 
-  constructor(private data: NewCityService, @Inject(CreateComponentService) service, @Inject(ViewContainerRef) viewContainerRef) {
+  constructor(private data: NewCityService, @Inject(CreateComponentService) service, @Inject(ViewContainerRef) viewContainerRef,
+    private changeUnits: ChangeUnitsService) {
     this.service = service;
     // service.setRootViewContainerRef(viewContainerRef);
     // service.addNewCard();
@@ -41,6 +44,9 @@ export class AppComponent implements OnInit {
     if (this.isMobileBrowser()) {
       this.footerClass = "footer";
     }
+
+    this.changeUnits.currentMessage.subscribe(message => this.units = message);
+    console.log(this.units);
 
     this.data.currentMessage.subscribe(message => {
       if (message !== "default message") {
@@ -62,6 +68,14 @@ export class AppComponent implements OnInit {
     // this.service.addNewCard();
     // this.service.addNewCard();
     // this.service.addNewCard();
+  }
+
+  setCelsius() {
+    this.changeUnits.changeMessage("c");
+  }
+
+  setFahrenheit() {
+    this.changeUnits.changeMessage("f");
   }
 
   isMobileBrowser(): boolean {
