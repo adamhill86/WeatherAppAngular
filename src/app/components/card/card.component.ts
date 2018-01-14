@@ -28,6 +28,8 @@ export class CardComponent implements OnInit {
   visibility: number;
   weatherData: any;
   units: string;
+  forecastToday: string;
+  forecastTonight: string;
 
   position: Coordinates;
 
@@ -132,6 +134,9 @@ export class CardComponent implements OnInit {
     this.windChill = this.weatherData["current_observation"][`windchill_${unit}`];
     this.pressure = this.weatherData["current_observation"]["pressure_mb"];
     this.visibility = this.weatherData["current_observation"]["visibility_mi"];
+
+    this.forecastToday = this.weatherData["forecast"]["txt_forecast"]["forecastday"][0]["fcttext"];
+    this.forecastTonight = this.weatherData["forecast"]["txt_forecast"]["forecastday"][1]["fcttext"];
 
     this.setBackgroundColor();
   }

@@ -58,7 +58,7 @@ export class AppComponent implements OnInit {
         console.log(city, state);
         this.service.addNewCard(city, state);
         this.numCards++;
-        if (this.numCards >= 3) {
+        if (this.numCards >= 2) {
           this.footerClass = "footer";
         }
       }
