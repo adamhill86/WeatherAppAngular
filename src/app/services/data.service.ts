@@ -10,15 +10,15 @@ export class DataService {
   }
 
   getDefaultWeatherData() {
-    return this.http.get(`http://api.wunderground.com/api/${weatherUndergroundKey}/conditions/forecast/q/VA/Virginia_Beach.json`);
+    return this.http.get(`https://api.wunderground.com/api/${weatherUndergroundKey}/conditions/forecast/q/VA/Virginia_Beach.json`);
   }
 
   getWeatherDataLatLong(lat: number, long: number) {
-    return this.http.get(`http://api.wunderground.com/api/${weatherUndergroundKey}/conditions/forecast/q/${lat},${long}.json`);
+    return this.http.get(`https://api.wunderground.com/api/${weatherUndergroundKey}/conditions/forecast/q/${lat},${long}.json`);
   }
 
   getWeatherData(city: string, state: string) {
-    return this.http.get(`http://api.wunderground.com/api/${weatherUndergroundKey}/conditions/forecast/q/${state}/${city}.json`);
+    return this.http.get(`https://api.wunderground.com/api/${weatherUndergroundKey}/conditions/forecast/q/${state}/${city}.json`);
   }
 
 }
