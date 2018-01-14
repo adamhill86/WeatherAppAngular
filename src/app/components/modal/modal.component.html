@@ -1,0 +1,34 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Add New City</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- <p>One fine body&hellip;</p> -->
+    <form>
+      <div class="form-group">
+        <label for="cityName">New City</label>
+        <input type="text" class="form-control" id="cityName" name="cityName" placeholder="Enter a city" [(ngModel)]="cityName">
+      </div>
+      <div class="form-group">
+        <label for="state">State</label>
+        <select id="state" class="form-control" [(ngModel)]="state" name="state">
+          <option *ngFor="let s of states">{{ s }}</option>
+        </select>
+      </div>
+      <!-- <hr>
+      <button class="btn btn-primary" (click)="newMessage()">Save</button>
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button> -->
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" (click)="newMessage()">Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<!-- {{ message }} -->
+
+<button class="fab-red" mat-fab (click)="open(content)"><i class="material-icons">&#xE145;</i></button>

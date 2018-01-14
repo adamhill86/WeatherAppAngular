@@ -1,0 +1,32 @@
+@import "./wu-icons-style.css";
+
+.my-card {
+  background-color: #666;
+  border-radius: 3px;
+  box-shadow: 4px 6px 19px -1px rgba(0,0,0,0.36);
+  transition: all 0.3s;
+  padding: 15px;
+  /* width: 800px; */
+}
+
+.cloudy {
+  background-color: #666;
+}
+
+.rain {
+  /* background-color: #457ad1; */
+  background-color: #5998FF;
+}
+
+.sun {
+  background-color: #ffb018; 
+}
+
+.snow {
+  background-color: white;
+  color: black;
+}
+
+.my-card:hover {
+  box-shadow: 4px 6px 19px 4px rgba(0,0,0,0.5);
+}

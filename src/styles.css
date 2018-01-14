@@ -1,1 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+@import "bootstrap/dist/css/bootstrap.css";
+/* @import "weather-underground-icons/dist/wu-icons-style.css"; */
+
+body {
+  background-color: #333;
+  color: white;
+}
+
+.footer {
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 100%;
+}
+
+.footer-sticky {
+  position: fixed;
+  bottom: 0px;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 100%;
+}
+
+.fab-red {
+  background-color: red;
+}
+
+.fab-red:hover {
+  background-color: #E40000;
+}
+
+.fab-red:active {
+  background-color: #D10000;
+}
+
+.fixed-btn {
+  position: fixed;
+  bottom: 5px;
+  right: 20px;
+}
