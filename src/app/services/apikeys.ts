@@ -1,0 +1,1 @@
+export const weatherUndergroundKey: string = "c7696945ee5f0863";
