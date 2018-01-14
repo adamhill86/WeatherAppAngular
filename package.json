@@ -18,6 +18,7 @@
     "@angular/cli": "1.6.4",
     "@angular/common": "^5.1.0",
     "@angular/compiler": "^5.1.0",
+    "@angular/compiler-cli": "^5.1.0",
     "@angular/core": "^5.1.0",
     "@angular/forms": "^5.1.0",
     "@angular/http": "^5.1.0",
@@ -31,7 +32,7 @@
     "express": "^4.16.2",
     "ngc-float-button": "^1.1.4",
     "rxjs": "^5.5.2",
-    "typescript": "~2.5.3",
+    "typescript": "^2.5.3",
     "weather-underground-icons": "^1.0.0",
     "zone.js": "^0.8.19"
   },
