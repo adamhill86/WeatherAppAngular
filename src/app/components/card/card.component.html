@@ -5,13 +5,13 @@
       <p class="lead">{{ conditions }}</p>
     </div>
     <div class="col"><h2>{{ location }}</h2></div>
-    <div class="col"><h2 class="text-right">{{ temp }}&deg; {{ units.toUpperCase() }}</h2></div>
+    <div class="col"><h2 class="text-right">{{ temp }}&deg; {{ tempUnits.toUpperCase() }}</h2></div>
   </div>
 
   <div class="row">
     <div class="col">
       <h5>Winds</h5>
-      <p>{{ windSpeed }} mph {{ windDirection }} </p>
+      <p>{{ windSpeed }} {{ windUnits }} {{ windDirection }} </p>
     </div>
     <div class="col">
       <h5>UV</h5>
@@ -23,18 +23,18 @@
     </div>
     <div class="col">
       <h5>Dew Point</h5>
-      <p>{{ dewPoint }}&deg; {{ units.toUpperCase() }}</p>
+      <p>{{ dewPoint }}&deg; {{ tempUnits.toUpperCase() }}</p>
     </div>
   </div>
 
   <div class="row">
     <div class="col">
       <h5>Feels Like</h5>
-      <p>{{ feelsLike }}&deg; {{ units.toUpperCase() }}</p>
+      <p>{{ feelsLike }}&deg; {{ tempUnits.toUpperCase() }}</p>
     </div>
     <div class="col">
       <h5>Wind Chill</h5>
-      <p>{{ windChill }}&deg; {{ units.toUpperCase() }}</p>
+      <p>{{ windChill }}&deg; {{ tempUnits.toUpperCase() }}</p>
     </div>
     <div class="col">
       <h5>Pressure</h5>

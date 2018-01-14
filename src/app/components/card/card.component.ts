@@ -27,7 +27,8 @@ export class CardComponent implements OnInit {
   pressure: number;
   visibility: number;
   weatherData: any;
-  units: string;
+  tempUnits: string;
+  windUnits: string;
   forecastToday: string;
   forecastTonight: string;
 
@@ -64,11 +65,11 @@ export class CardComponent implements OnInit {
 
     this.changeUnitsService.currentMessage.subscribe(message => {
       console.log("Message changed", message);
-      this.units = message;
+      this.tempUnits = message;
       if (this.weatherData !== undefined) {
         // make sure data has been set before
         // if it has, update to new units
-        this.setWeatherData(this.weatherData, this.units);
+        this.setWeatherData(this.weatherData, this.tempUnits);
       }
     });
   }
@@ -101,19 +102,19 @@ export class CardComponent implements OnInit {
 
   setLatLongData() {
     this.dataService.getWeatherDataLatLong(this.position.lat, this.position.long).subscribe(data => {
-      this.setWeatherData(data, this.units);
+      this.setWeatherData(data, this.tempUnits);
     });
   }
 
   setDefaultCityStateData() {
     this.dataService.getDefaultWeatherData().subscribe(data => {
-      this.setWeatherData(data, this.units);
+      this.setWeatherData(data, this.tempUnits);
     });
   }
 
   setCityStateData() {
     this.dataService.getWeatherData(this.cityName, this.stateName).subscribe(data => {
-      this.setWeatherData(data, this.units);
+      this.setWeatherData(data, this.tempUnits);
     });
   }
 
@@ -125,7 +126,7 @@ export class CardComponent implements OnInit {
     this.conditions = this.weatherData["current_observation"]["weather"];
     this.icon = this.weatherData["current_observation"]["icon"];
     this.iconClass = "white"; // default white outline with colored components
-    this.windSpeed = this.weatherData["current_observation"]["wind_mph"];
+
     this.windDirection = this.weatherData["current_observation"]["wind_dir"];
     this.uv = this.weatherData["current_observation"]["UV"];
     this.humidity = this.weatherData["current_observation"]["relative_humidity"];
@@ -136,15 +137,19 @@ export class CardComponent implements OnInit {
     this.visibility = this.weatherData["current_observation"]["visibility_mi"];
 
     // get descriptive forecast strings for today and tonight
-    if (this.units === "f") {
+    if (this.tempUnits === "f") {
       // use these if we're using degrees F
       this.forecastToday = this.weatherData["forecast"]["txt_forecast"]["forecastday"][0]["fcttext"];
       this.forecastTonight = this.weatherData["forecast"]["txt_forecast"]["forecastday"][1]["fcttext"];
+      this.windUnits = "mph";
     } else {
       // use these if we're using degrees C
       this.forecastToday = this.weatherData["forecast"]["txt_forecast"]["forecastday"][0]["fcttext_metric"];
       this.forecastTonight = this.weatherData["forecast"]["txt_forecast"]["forecastday"][1]["fcttext_metric"];
+      this.windUnits = "kph";
     }
+
+    this.windSpeed = this.weatherData["current_observation"][`wind_${this.windUnits}`];
 
     this.setBackgroundColor();
   }
