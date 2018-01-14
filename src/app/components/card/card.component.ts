@@ -107,7 +107,7 @@ export class CardComponent implements OnInit {
     this.weatherData = data;
     console.log(this.weatherData);
     this.location = this.weatherData["current_observation"]["display_location"]["full"];
-    this.temp = this.weatherData["current_observation"]["temp_f"];
+    this.temp = Math.round(this.weatherData["current_observation"]["temp_f"]);
     this.conditions = this.weatherData["current_observation"]["weather"];
     this.icon = this.weatherData["current_observation"]["icon"];
     this.iconClass = "white"; // default white outline with colored components
