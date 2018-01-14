@@ -53,10 +53,10 @@ export class CardComponent implements OnInit {
           };
           console.log(this.position);
           this.setLatLongData();
-        })
-      } else {
-        console.log("geolocation is not supported by this browser");
-        this.setDefaultCityStateData();
+        }, error => {
+          console.log("Geolocation is not supported by this browser");
+          this.setDefaultCityStateData();
+        });
       }
     }
 
