@@ -9,9 +9,12 @@ import { ChangeUnitsService } from '../../services/change-units.service';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
+  // @Input fields hold city and state names so new CardComponents can be created from the modal form
+  // These get passed in from the CreateComponentService
   @Input() cityName;
   @Input() stateName;
 
+  // These hold the values to be displayed on the card
   location: string;
   temp: number;
   conditions: string;
@@ -32,39 +35,53 @@ export class CardComponent implements OnInit {
   forecastToday: string;
   forecastTonight: string;
 
+  // This is used when geolocation is enabled
   position: Coordinates;
 
+  // This is used to help control the background color of the card
   backgroundColorClass: string;
 
   closeResult: string;
 
+  /**
+   * The constructor sets up references to the weather DataService as well as the ChangeUnitsService
+   * @param dataService The weather data service (retrieves weather info from the API)
+   * @param changeUnitsService The service that sends change units messages
+   */
   constructor(private dataService: DataService, private changeUnitsService: ChangeUnitsService) { 
-    //console.log(`cityName: ${this.cityName}, stateName: ${this.stateName}`);
   }
 
   ngOnInit() {
-    console.log(`cityName: ${this.cityName}, stateName: ${this.stateName}`);
+    // console.log(`cityName: ${this.cityName}, stateName: ${this.stateName}`);
     if (this.cityName !== undefined && this.stateName !== undefined) {
+      // This will be called if a CardComponent has been created from the CreateComponentService
       this.setCityStateData();
     } else {
+      // Otherwise, try to get geolocation data
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
-          console.log(position);
+          // console.log(position);
+          // If we're here, the user has allowed us access to their location
+          // and we can get the data from the lat, long coordinates
           this.position = {
             lat: position["coords"]["latitude"],
             long: position["coords"]["longitude"]
           };
-          console.log(this.position);
+          // console.log(this.position);
           this.setLatLongData();
         }, error => {
+          // If we're here, either geolocation isn't enabled or we were denied access
+          // So set up the default Virginia Beach card instead
           console.log("Geolocation is not supported by this browser");
           this.setDefaultCityStateData();
         });
       }
     }
 
-    this.changeUnitsService.currentMessage.subscribe(message => {
-      console.log("Message changed", message);
+    // Listen for messages from the change units service
+    // this will fire if the user has clicked either the F or C buttons on the page
+    this.changeUnitsService.currentUnit.subscribe(message => {
+      // console.log("Message changed", message);
       this.tempUnits = message;
       if (this.weatherData !== undefined) {
         // make sure data has been set before
@@ -74,6 +91,9 @@ export class CardComponent implements OnInit {
     });
   }
 
+  /**
+   * This method changes the background color of the CardComponent depending on the weather conditions
+   */
   setBackgroundColor() {
     switch (this.icon) {
       case "mostlysunny":
@@ -100,24 +120,41 @@ export class CardComponent implements OnInit {
     }
   }
 
+  /**
+   * This method fetches weather data from data service based on lat,long position.
+   * It then calls setWeatherData with the results it received.
+   */
   setLatLongData() {
     this.dataService.getWeatherDataLatLong(this.position.lat, this.position.long).subscribe(data => {
       this.setWeatherData(data, this.tempUnits);
     });
   }
 
+  /**
+   * This method fetches weather data from Virginia Beach, VA as a default location.
+   * It then calls setWeatherData with the results it received.
+   */
   setDefaultCityStateData() {
     this.dataService.getDefaultWeatherData().subscribe(data => {
       this.setWeatherData(data, this.tempUnits);
     });
   }
 
+  /**
+   * This method fetches weather data from a given city and state.
+   * It then calls setWeatherData with the results it received.
+   */
   setCityStateData() {
     this.dataService.getWeatherData(this.cityName, this.stateName).subscribe(data => {
       this.setWeatherData(data, this.tempUnits);
     });
   }
 
+  /**
+   * This method sets all the card's variables based on the JSON object that gets returned from the API
+   * @param data The weather data JSON object
+   * @param unit Fahrenheit or Celsius (represented as 'f' or 'c' respectively)
+   */
   setWeatherData(data, unit) {
     this.weatherData = data;
     console.log(this.weatherData);
@@ -153,13 +190,11 @@ export class CardComponent implements OnInit {
 
     this.setBackgroundColor();
   }
-
-  // setCityName(cityName: string) {
-  //   this.cityName = cityName;
-  //   console.log(`Inside setCityName, cityName: ${this.cityName}, stateName: ${this.stateName}`);
-  // }
 }
 
+/**
+ * This represents a set of lat,long coordinates
+ */
 interface Coordinates {
   lat: number;
   long: number;

@@ -20,29 +20,29 @@ export class ModalComponent implements OnInit {
   message: string;
   modalReference: NgbModalRef;
 
-  @Output() messageEvent = new EventEmitter<string>();
+  // @Output() messageEvent = new EventEmitter<string>();
 
-  constructor(private modalService: NgbModal, private data: NewCityService) {}
+  constructor(private modalService: NgbModal, private newCityService: NewCityService) {}
 
   open(content) {
     this.modalReference = this.modalService.open(content);
-    this.modalReference.result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    // this.modalReference.result.then((result) => {
+    //   this.closeResult = `Closed with: ${result}`;
+    // }, (reason) => {
+    //   this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    // });
   }
 
-  private getDismissReason(reason: any): string {
-    console.log(this.cityName);
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }
+  // private getDismissReason(reason: any): string {
+  //   console.log(this.cityName);
+  //   if (reason === ModalDismissReasons.ESC) {
+  //     return 'by pressing ESC';
+  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+  //     return 'by clicking on a backdrop';
+  //   } else {
+  //     return  `with: ${reason}`;
+  //   }
+  // }
 
   // sendMessage() {
   //   console.log("In SendMessage");
@@ -50,11 +50,11 @@ export class ModalComponent implements OnInit {
   // }
 
   ngOnInit() {
-    this.data.currentMessage.subscribe(message => this.message = message);
+    this.newCityService.currentCityState.subscribe(message => this.message = message);
   }
 
   newMessage() {
-    this.data.changeMessage(`${this.cityName}, ${this.state}`);
+    this.newCityService.changeCityState(`${this.cityName}, ${this.state}`);
     this.modalReference.close();
 
     // reset city and state

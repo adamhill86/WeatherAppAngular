@@ -45,10 +45,10 @@ export class AppComponent implements OnInit {
       this.footerClass = "footer";
     }
 
-    this.changeUnits.currentMessage.subscribe(message => this.units = message);
+    this.changeUnits.currentUnit.subscribe(message => this.units = message);
     console.log(this.units);
 
-    this.data.currentMessage.subscribe(message => {
+    this.data.currentCityState.subscribe(message => {
       if (message !== "default message") {
         console.log(`Message received: ${message}`);
         const array = message.split(',');
@@ -65,17 +65,14 @@ export class AppComponent implements OnInit {
       this.message = message;
     });
     this.service.setRootViewContainerRef(this.viewContainerRef);
-    // this.service.addNewCard();
-    // this.service.addNewCard();
-    // this.service.addNewCard();
   }
 
   setCelsius() {
-    this.changeUnits.changeMessage("c");
+    this.changeUnits.changeUnit("c");
   }
 
   setFahrenheit() {
-    this.changeUnits.changeMessage("f");
+    this.changeUnits.changeUnit("f");
   }
 
   isMobileBrowser(): boolean {
