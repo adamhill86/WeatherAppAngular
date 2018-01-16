@@ -1,27 +1,31 @@
 # WeatherAppAngular
+This is a small weather app developed in Angular. It displays releveant weather data from [Weather Underground](https://www.wunderground.com/) based on
+either a user's location or a US city of the user's choice.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.4.
+## Use
+The app will attempt to get the user's location using the HTML5 geolocation API. If that is available, it fetches data from Weather Underground for that
+location. Otherwise it will default to Virginia Beach, VA. Users also have the ability to display weather data for multiple cities by clicking on the
+red floating action button at the bottom right of the window. It was ask them to input the city and state that they're interested in and then will 
+fetch the appropriate weather data for that city. Finally, users can also switch between Celsius and Fahrenheit with the click of a button.
 
-## Development server
+## Weather Data
+The app will display the following information to the user:
+* Current conditions (cloudy, sunny, rain, etc)
+* Location (City, State)
+* Current temperature (in Fahrenheit by default but can be set to Celsius)
+* Wind speed and direction
+* UV
+* Relative humidity
+* Dew point
+* Feels like
+* Wind chill
+* Pressure (in millibars)
+* Visibility (in miles)
+* Descriptive forecast for today (if available)
+* Descriptive forecast for tonight (if available)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Work still to be done
+* Display more detailed forecast
+* Handle invalid cities
+* Allow users to remove a city from the list
+* Save favorite cities tied to user accounts for retrieval later
