@@ -176,13 +176,18 @@ export class CardComponent implements OnInit {
     // get descriptive forecast strings for today and tonight
     if (this.tempUnits === "f") {
       // use these if we're using degrees F
-      this.forecastToday = this.weatherData["forecast"]["txt_forecast"]["forecastday"][0]["fcttext"];
-      this.forecastTonight = this.weatherData["forecast"]["txt_forecast"]["forecastday"][1]["fcttext"];
+      if (this.weatherData["forecast"]["txt_forecast"]["forecastday"].length > 0) {
+        // This check is done because occasionally it doesn't return a forecast
+        this.forecastToday = this.weatherData["forecast"]["txt_forecast"]["forecastday"][0]["fcttext"];
+        this.forecastTonight = this.weatherData["forecast"]["txt_forecast"]["forecastday"][1]["fcttext"];
+      }
       this.windUnits = "mph";
     } else {
       // use these if we're using degrees C
-      this.forecastToday = this.weatherData["forecast"]["txt_forecast"]["forecastday"][0]["fcttext_metric"];
-      this.forecastTonight = this.weatherData["forecast"]["txt_forecast"]["forecastday"][1]["fcttext_metric"];
+      if (this.weatherData["forecast"]["txt_forecast"]["forecastday"].length > 0) {
+        this.forecastToday = this.weatherData["forecast"]["txt_forecast"]["forecastday"][0]["fcttext_metric"];
+        this.forecastTonight = this.weatherData["forecast"]["txt_forecast"]["forecastday"][1]["fcttext_metric"];
+      }
       this.windUnits = "kph";
     }
 
